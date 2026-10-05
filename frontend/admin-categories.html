@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Categories — Admin — Complaint Portal</title>
+  <link rel="stylesheet" href="/css/style.css"/>
+  <link rel="stylesheet" href="/css/dashboard.css"/>
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar" id="sidebar"></aside>
+    <div class="main">
+      <div id="topbar-slot"></div>
+      <div class="content" id="admin-categories-root">
+        <div class="flex-between mb-2">
+          <div>
+            <h2>Complaint Categories</h2>
+            <p>Categories appear in the student submission form. Deactivate instead of delete if already used.</p>
+          </div>
+          <button class="btn btn-primary" id="cat-add-btn"><i data-lucide="plus"></i> Add Category</button>
+        </div>
+
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr><th>Name</th><th>Description</th><th>Status</th><th>Used by</th><th>Actions</th></tr>
+            </thead>
+            <tbody id="categories-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Category add/edit modal -->
+  <div class="modal-backdrop" id="cat-modal">
+    <div class="modal">
+      <h3 id="cat-modal-title">Add Category</h3>
+      <div id="cat-alert" class="alert alert-error" hidden></div>
+      <form id="cat-form" novalidate>
+        <div class="form-group">
+          <label for="cat-name">Name *</label>
+          <input type="text" id="cat-name" class="form-control" maxlength="60" placeholder="e.g. Sports Facilities"/>
+        </div>
+        <div class="form-group">
+          <label for="cat-description">Description</label>
+          <input type="text" id="cat-description" class="form-control" maxlength="200" placeholder="Short description (optional)"/>
+        </div>
+        <div class="form-group">
+          <label style="display:flex;align-items:center;gap:.5rem;font-weight:500">
+            <input type="checkbox" id="cat-active" checked style="width:auto"/> Active (visible to students)
+          </label>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">Save Category</button>
+          <button type="button" class="btn btn-outline" id="cat-cancel">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/ui.js"></script>
+  <script src="/js/admin.js"></script>
+</body>
+</html>

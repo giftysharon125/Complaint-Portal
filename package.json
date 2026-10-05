@@ -1,0 +1,32 @@
+{
+  "name": "student-complaint-management-system",
+  "version": "1.0.0",
+  "description": "College Student Complaint Management System — full-stack app built with Node.js, Express, MongoDB, JWT and a vanilla JS frontend.",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "dev": "nodemon backend/server.js",
+    "seed": "node backend/utils/seed.js"
+  },
+  "keywords": [
+    "complaint-management",
+    "express",
+    "mongodb",
+    "jwt",
+    "college"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.5.1",
+    "morgan": "^1.10.0",
+    "multer": "^2.4.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
+}

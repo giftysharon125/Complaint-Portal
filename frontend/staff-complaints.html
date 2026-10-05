@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Assigned Complaints — Staff — Complaint Portal</title>
+  <link rel="stylesheet" href="/css/style.css"/>
+  <link rel="stylesheet" href="/css/dashboard.css"/>
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar" id="sidebar"></aside>
+    <div class="main">
+      <div id="topbar-slot"></div>
+      <div class="content" id="staff-complaints-root">
+        <div class="flex-between mb-2">
+          <div>
+            <h2>Assigned Complaints</h2>
+            <p>Only complaints assigned to you are shown here.</p>
+          </div>
+          <span class="text-muted" id="sf-count">0 complaints</span>
+        </div>
+
+        <div class="filter-bar">
+          <input type="search" id="sf-search" placeholder="Search by ID, title or student..." style="min-width:220px"/>
+          <select id="sf-status">
+            <option value="">All statuses</option>
+            <option value="active">Active (Assigned / In Progress)</option>
+            <option value="resolved">Resolved / Closed</option>
+          </select>
+          <select id="sf-category"><option value="">All categories</option></select>
+        </div>
+
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Complaint ID</th><th>Title</th><th>Student</th><th>Category</th>
+                <th>Priority</th><th>Status</th><th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="staff-complaints-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/ui.js"></script>
+  <script src="/js/staff.js"></script>
+</body>
+</html>

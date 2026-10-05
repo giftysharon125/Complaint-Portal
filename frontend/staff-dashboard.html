@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Staff Dashboard — Complaint Portal</title>
+  <link rel="stylesheet" href="/css/style.css"/>
+  <link rel="stylesheet" href="/css/dashboard.css"/>
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar" id="sidebar"></aside>
+    <div class="main">
+      <div id="topbar-slot"></div>
+      <div class="content" id="staff-dashboard-root">
+        <div class="page-head">
+          <div>
+            <h2>Staff Dashboard</h2>
+            <p class="page-sub">Your assigned complaints and workload at a glance.</p>
+          </div>
+        </div>
+
+        <div class="stat-grid">
+          <div class="stat-card">
+            <div class="stat-icon blue"><i data-lucide="clipboard-list"></i></div>
+            <div><div class="stat-value" id="sf-total">0</div><div class="stat-label">Total Assigned</div></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon amber"><i data-lucide="inbox"></i></div>
+            <div><div class="stat-value" id="sf-assigned">0</div><div class="stat-label">Pending Assignments</div></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon slate"><i data-lucide="loader"></i></div>
+            <div><div class="stat-value" id="sf-inprogress">0</div><div class="stat-label">In Progress</div></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon green"><i data-lucide="check-circle-2"></i></div>
+            <div><div class="stat-value" id="sf-resolved">0</div><div class="stat-label">Resolved</div></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">
+            My Assigned Complaints
+            <a href="/staff-complaints.html" class="btn btn-outline btn-sm">View all →</a>
+          </div>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Complaint ID</th><th>Title</th><th>Category</th><th>Priority</th>
+                  <th>Status</th><th>Date</th><th></th>
+                </tr>
+              </thead>
+              <tbody id="staff-complaints-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/ui.js"></script>
+  <script src="/js/staff.js"></script>
+</body>
+</html>

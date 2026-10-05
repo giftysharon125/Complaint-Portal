@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Profile — Complaint Portal</title>
+  <link rel="stylesheet" href="/css/style.css"/>
+  <link rel="stylesheet" href="/css/dashboard.css"/>
+  <link rel="stylesheet" href="/css/forms.css"/>
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar" id="sidebar"></aside>
+    <div class="main">
+      <div id="topbar-slot"></div>
+      <div class="content">
+        <div class="form-page">
+          <div class="form-card">
+            <h2>My Profile</h2>
+            <p class="form-desc">Update your personal information. Email and ID cannot be changed.</p>
+
+            <div id="pf-alert" class="alert alert-success" hidden></div>
+
+            <div id="pf-summary" class="stat-grid hidden" style="grid-template-columns:repeat(auto-fit,minmax(160px,1fr))">
+              <div class="stat-card"><div class="stat-icon blue"><i data-lucide="clipboard-list"></i></div>
+                <div><div class="stat-value" id="pf-total">0</div><div class="stat-label">Total Complaints</div></div></div>
+              <div class="stat-card"><div class="stat-icon slate"><i data-lucide="calendar"></i></div>
+                <div><div class="stat-value" id="pf-since" style="font-size:1rem">—</div><div class="stat-label">Member Since</div></div></div>
+            </div>
+
+            <form id="profile-form" novalidate>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="pf-name">Full Name</label>
+                  <input type="text" id="pf-name" class="form-control"/>
+                </div>
+                <div class="form-group">
+                  <label for="pf-role">Role</label>
+                  <input type="text" id="pf-role" class="form-control" disabled style="text-transform:capitalize;background:#f8fafc"/>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="pf-email">Email (read-only)</label>
+                  <input type="email" id="pf-email" class="form-control" disabled style="background:#f8fafc"/>
+                </div>
+                <div class="form-group">
+                  <label for="pf-studentid">Student ID (read-only)</label>
+                  <input type="text" id="pf-studentid" class="form-control" disabled style="background:#f8fafc"/>
+                </div>
+              </div>
+
+              <div class="form-row" id="pf-student-fields">
+                <div class="form-group">
+                  <label for="pf-department">Department</label>
+                  <select id="pf-department" class="form-control"></select>
+                </div>
+                <div class="form-group">
+                  <label for="pf-year">Year</label>
+                  <select id="pf-year" class="form-control"></select>
+                </div>
+              </div>
+
+              <div class="form-actions">
+                <button type="submit" id="pf-save" class="btn btn-primary">Save Changes</button>
+                <button type="button" class="btn btn-outline" onclick="window.location.href=redirectPathFor(getUser()?.role)">Back to Dashboard</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/ui.js"></script>
+  <script src="/js/profile.js"></script>
+  <script>
+    // Hide student-only fields for staff/admin
+    (function () {
+      const role = getUser()?.role;
+      if (role !== 'student') {
+        document.getElementById('pf-student-fields').classList.add('hidden');
+      }
+    })();
+  </script>
+</body>
+</html>

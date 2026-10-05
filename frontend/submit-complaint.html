@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Submit Complaint — Complaint Portal</title>
+  <link rel="stylesheet" href="/css/style.css"/>
+  <link rel="stylesheet" href="/css/dashboard.css"/>
+  <link rel="stylesheet" href="/css/forms.css"/>
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar" id="sidebar"></aside>
+    <div class="main">
+      <div id="topbar-slot"></div>
+      <div class="content">
+        <div class="form-page" id="submit-page-root">
+          <div class="form-card">
+            <h2>Submit a New Complaint</h2>
+            <p class="form-desc">Describe the issue clearly so staff can resolve it quickly. Fields marked * are required.</p>
+
+            <div id="sc-alert" class="alert alert-error" hidden></div>
+
+            <form id="submit-form" novalidate>
+              <div class="form-group">
+                <label for="sc-title">Complaint Title *</label>
+                <input type="text" id="sc-title" class="form-control" maxlength="150" placeholder="Short summary, e.g. 'Wi-Fi keeps disconnecting in lab 204'"/>
+                <div id="sc-title-error" class="field-error"></div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="sc-category">Category *</label>
+                  <select id="sc-category" class="form-control"><option value="">Loading categories...</option></select>
+                  <div id="sc-category-error" class="field-error"></div>
+                </div>
+                <div class="form-group">
+                  <label for="sc-priority">Priority</label>
+                  <select id="sc-priority" class="form-control">
+                    <option value="Low">Low</option>
+                    <option value="Medium" selected>Medium</option>
+                    <option value="High">High</option>
+                    <option value="Critical">Critical</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="sc-location">Location *</label>
+                <input type="text" id="sc-location" class="form-control" maxlength="120" placeholder="e.g. CSE Block, Room 204"/>
+                <div id="sc-location-error" class="field-error"></div>
+              </div>
+
+              <div class="form-group">
+                <label for="sc-description">Description *</label>
+                <textarea id="sc-description" class="form-control" maxlength="2000" placeholder="Explain the problem in detail: what is happening, since when, and how it affects you..."></textarea>
+                <div id="sc-description-error" class="field-error"></div>
+              </div>
+
+              <div class="form-group">
+                <label for="sc-attachment">Image Attachment (optional)</label>
+                <input type="file" id="sc-attachment" class="form-control" accept="image/*"/>
+                <div class="hint" id="sc-file-name">No file chosen (JPG/PNG, max 5 MB)</div>
+              </div>
+
+              <div class="form-actions">
+                <button type="submit" id="sc-submit" class="btn btn-primary">Submit Complaint</button>
+                <button type="button" id="sc-cancel" class="btn btn-outline">Cancel</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/ui.js"></script>
+  <script src="/js/student.js"></script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Feedback — Admin — Complaint Portal</title>
+  <link rel="stylesheet" href="/css/style.css"/>
+  <link rel="stylesheet" href="/css/dashboard.css"/>
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar" id="sidebar"></aside>
+    <div class="main">
+      <div id="topbar-slot"></div>
+      <div class="content" id="admin-feedback-root">
+        <div class="flex-between mb-2">
+          <div>
+            <h2>Student Feedback</h2>
+            <p>Ratings submitted by students after their complaints were resolved.</p>
+          </div>
+          <div style="text-align:right">
+            <div class="stat-value" id="fb-average" style="font-size:1.5rem;color:#f59e0b">—</div>
+            <div class="stat-label" id="fb-count">0 responses</div>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Complaint ID</th><th>Title</th><th>Student</th><th>Rating</th><th>Comment</th><th>Date</th>
+              </tr>
+            </thead>
+            <tbody id="feedback-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/ui.js"></script>
+  <script src="/js/admin.js"></script>
+</body>
+</html>

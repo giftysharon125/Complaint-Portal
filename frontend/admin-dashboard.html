@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Dashboard — Complaint Portal</title>
+  <link rel="stylesheet" href="/css/style.css"/>
+  <link rel="stylesheet" href="/css/dashboard.css"/>
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar" id="sidebar"></aside>
+    <div class="main">
+      <div id="topbar-slot"></div>
+      <div class="content" id="admin-dashboard-root">
+
+        <div class="page-head">
+          <div>
+            <h2>Admin Dashboard</h2>
+            <p class="page-sub">Campus complaint overview — all figures computed live from the database.</p>
+          </div>
+          <a href="/admin-complaints.html" class="btn btn-primary"><i data-lucide="clipboard-list"></i> Manage Complaints</a>
+        </div>
+
+        <div class="stat-grid">
+          <div class="stat-card">
+            <div class="stat-icon blue"><i data-lucide="clipboard-list"></i></div>
+            <div><div class="stat-value" id="st-total">0</div><div class="stat-label">Total Complaints</div></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon amber"><i data-lucide="clock"></i></div>
+            <div><div class="stat-value" id="st-pending">0</div><div class="stat-label">Pending</div></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon slate"><i data-lucide="loader"></i></div>
+            <div><div class="stat-value" id="st-inprogress">0</div><div class="stat-label">In Progress</div></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon green"><i data-lucide="check-circle-2"></i></div>
+            <div><div class="stat-value" id="st-resolved">0</div><div class="stat-label">Resolved</div></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon amber"><i data-lucide="star"></i></div>
+            <div><div class="stat-value" id="mini-rating">—</div><div class="stat-label"><span id="mini-feedback-count">0 responses</span></div></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon slate"><i data-lucide="timer"></i></div>
+            <div><div class="stat-value" id="mini-avg-resolution">—</div><div class="stat-label">Avg. Resolution Time</div></div>
+          </div>
+        </div>
+
+        <div class="dash-grid">
+          <div class="card">
+            <div class="card-title">Complaints by Category</div>
+            <div class="chart-box tall"><canvas id="chart-category"></canvas></div>
+          </div>
+          <div class="card">
+            <div class="card-title">Complaints by Status</div>
+            <div class="chart-box tall"><canvas id="chart-status"></canvas></div>
+          </div>
+        </div>
+
+        <div class="card mb-2">
+          <div class="card-title">Complaints — Last 14 Days</div>
+          <div class="chart-box"><canvas id="chart-time"></canvas></div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Recent Complaints</div>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Complaint ID</th><th>Student</th><th>Category</th><th>Priority</th>
+                  <th>Status</th><th>Submitted</th><th>Assigned Staff</th><th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="recent-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/ui.js"></script>
+  <script src="/js/dashboard.js"></script>
+  <script src="/js/admin.js"></script>
+</body>
+</html>

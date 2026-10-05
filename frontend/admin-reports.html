@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Reports — Admin — Complaint Portal</title>
+  <link rel="stylesheet" href="/css/style.css"/>
+  <link rel="stylesheet" href="/css/dashboard.css"/>
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar" id="sidebar"></aside>
+    <div class="main">
+      <div id="topbar-slot"></div>
+      <div class="content" id="admin-reports-root">
+        <div class="page-head">
+          <div>
+            <h2>Reports &amp; Analytics</h2>
+            <p class="page-sub">Aggregated statistics across all complaints and feedback.</p>
+          </div>
+        </div>
+
+        <div class="stat-grid">
+          <div class="stat-card">
+            <div class="stat-icon blue"><i data-lucide="clipboard-list"></i></div>
+            <div><div class="stat-value" id="rp-total">0</div><div class="stat-label">Total Complaints</div></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon red"><i data-lucide="x-circle"></i></div>
+            <div><div class="stat-value" id="rp-rejected">0</div><div class="stat-label">Rejected</div></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon slate"><i data-lucide="timer"></i></div>
+            <div><div class="stat-value" id="rp-avg-resolution">—</div><div class="stat-label">Avg. Resolution Time</div></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon amber"><i data-lucide="star"></i></div>
+            <div><div class="stat-value" id="rp-rating">—</div><div class="stat-label">Avg. Feedback Rating</div></div>
+          </div>
+        </div>
+
+        <div class="dash-grid">
+          <div class="card">
+            <div class="card-title">Complaints by Category</div>
+            <div class="chart-box tall"><canvas id="rp-chart-category"></canvas></div>
+          </div>
+          <div class="card">
+            <div class="card-title">Complaints by Status</div>
+            <div class="chart-box tall"><canvas id="rp-chart-status"></canvas></div>
+          </div>
+        </div>
+
+        <div class="grid-2 mb-2">
+          <div class="card">
+            <div class="card-title">Complaints — Last 14 Days</div>
+            <div class="chart-box"><canvas id="rp-chart-time"></canvas></div>
+          </div>
+          <div class="card">
+            <div class="card-title">Priority Breakdown</div>
+            <table class="data-table" style="min-width:0">
+              <thead><tr><th>Priority</th><th>Count</th><th>Share</th></tr></thead>
+              <tbody id="rp-priority-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/ui.js"></script>
+  <script src="/js/dashboard.js"></script>
+  <script src="/js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Feedback — Complaint Portal</title>
+  <link rel="stylesheet" href="/css/style.css"/>
+  <link rel="stylesheet" href="/css/dashboard.css"/>
+  <link rel="stylesheet" href="/css/forms.css"/>
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar" id="sidebar"></aside>
+    <div class="main">
+      <div id="topbar-slot"></div>
+      <div class="content" id="feedback-root">
+        <div class="form-page">
+          <div class="form-card">
+            <h2>Feedback on Resolved Complaints</h2>
+            <p class="form-desc">Rate the resolutions you received. Your feedback helps the college improve its services.</p>
+            <div id="fbb-list"><div class="loading"><div class="spinner"></div>Loading resolved complaints...</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/ui.js"></script>
+  <script>
+    (async function initFeedbackPage() {
+      const user = requireAuth('student');
+      if (!user) return;
+      renderShell({ role: 'student', active: 'feedback', title: 'Feedback' });
+
+      const wrap = document.getElementById('fbb-list');
+      try {
+        const res = await apiGet('/complaints/my?status=resolved');
+        const resolved = res.data;
+
+        if (!resolved.length) {
+          wrap.innerHTML = `
+            <div class="empty-state">
+              <i data-lucide="star"></i>
+              <h3>No resolved complaints yet</h3>
+              <p>Once a complaint is resolved you can rate the resolution here.</p>
+            </div>`;
+          refreshIcons();
+          return;
+        }
+
+        wrap.innerHTML = resolved
+          .map((c) => {
+            if (c.feedback) {
+              return `
+                <div class="note-item">
+                  <div class="flex-between">
+                    <span class="mono text-muted">${escapeHtml(c.complaintId)}</span>
+                    <a href="/complaint-details.html?id=${c._id}">View complaint</a>
+                  </div>
+                  <div class="cell-strong">${escapeHtml(c.title)}</div>
+                  <div class="feedback-summary mt-1">
+                    ${starsHtml(c.feedback.rating)} <span class="text-muted">${c.feedback.rating}/5</span>
+                  </div>
+                  ${c.feedback.comment ? `<p class="mt-1" style="font-size:.86rem">"${escapeHtml(c.feedback.comment)}"</p>` : ''}
+                </div>`;
+            }
+            return `
+              <div class="note-item" id="fb-card-${c._id}">
+                <div class="flex-between">
+                  <span class="mono text-muted">${escapeHtml(c.complaintId)}</span>
+                  <a href="/complaint-details.html?id=${c._id}">View complaint</a>
+                </div>
+                <div class="cell-strong">${escapeHtml(c.title)}</div>
+                <div class="form-group mt-1">
+                  <label>Rating</label>
+                  <div class="stars" data-id="${c._id}">
+                    ${[1,2,3,4,5].map((i) => `<button type="button" data-v="${i}" aria-label="${i} star">★</button>`).join('')}
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Comment (optional)</label>
+                  <input type="text" class="form-control" maxlength="500" placeholder="Tell us about the resolution experience..." id="fb-comment-${c._id}"/>
+                </div>
+                <button class="btn btn-primary btn-sm" onclick="submitFeedback('${c._id}')">Submit Feedback</button>
+                <div id="fb-err-${c._id}" class="field-error"></div>
+              </div>`;
+          })
+          .join('');
+
+        // Wire star widgets
+        wrap.querySelectorAll('.stars').forEach((el) => {
+          el.querySelectorAll('button').forEach((btn) => {
+            btn.addEventListener('click', () => {
+              const v = parseInt(btn.dataset.v, 10);
+              el.dataset.rating = v;
+              el.querySelectorAll('button').forEach((b) =>
+                b.classList.toggle('active', parseInt(b.dataset.v, 10) <= v)
+              );
+            });
+          });
+        });
+        refreshIcons();
+      } catch (err) {
+        wrap.innerHTML = `<div class="empty-state"><h3>Could not load complaints</h3><p>${escapeHtml(err.message)}</p></div>`;
+      }
+    })();
+
+    async function submitFeedback(id) {
+      const errEl = document.getElementById('fb-err-' + id);
+      const stars = document.querySelector(`.stars[data-id="${id}"]`);
+      const rating = parseInt(stars?.dataset.rating || '0', 10);
+      errEl.classList.remove('show');
+      if (!rating) {
+        errEl.textContent = 'Please select a rating first';
+        errEl.classList.add('show');
+        return;
+      }
+      const comment = document.getElementById('fb-comment-' + id).value.trim();
+      try {
+        const res = await apiPost(`/complaints/${id}/feedback`, { rating, comment });
+        toast(res.message || 'Feedback submitted');
+        setTimeout(() => window.location.reload(), 600);
+      } catch (err) {
+        errEl.textContent = err.message;
+        errEl.classList.add('show');
+      }
+    }
+  </script>
+</body>
+</html>
